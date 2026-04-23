@@ -143,7 +143,36 @@ public class MainApp {
         System.out.print("Enter meter number: ");
         String meterNumber = scanner.nextLine().trim();
 
-        Customer customer = new Customer(id, name, meterNumber);
+        System.out.println("Select city/region:");
+        System.out.println("1. Mumbai / Maharashtra");
+        System.out.println("2. Delhi");
+        System.out.println("3. Bangalore (Karnataka)");
+        System.out.println("4. Chennai (Tamil Nadu)");
+        System.out.println("5. Kolkata (West Bengal)");
+        int cityChoice = readInt("Enter city choice (1-5): ");
+        String city;
+        switch (cityChoice) {
+            case 1:
+                city = "Mumbai / Maharashtra";
+                break;
+            case 2:
+                city = "Delhi";
+                break;
+            case 3:
+                city = "Bangalore (Karnataka)";
+                break;
+            case 4:
+                city = "Chennai (Tamil Nadu)";
+                break;
+            case 5:
+                city = "Kolkata (West Bengal)";
+                break;
+            default:
+                System.out.println("Invalid choice. Defaulting to Delhi.");
+                city = "Delhi";
+        }
+
+        Customer customer = new Customer(id, name, meterNumber, city);
         boolean added = customerService.addCustomer(customer);
         if (added) {
             fileHandler.saveCustomers(customerService.getMutableCustomerList());
