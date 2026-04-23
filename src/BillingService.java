@@ -23,20 +23,32 @@ public class BillingService {
         return maxId + 1;
     }
 
-    public double calculateBill(int units) {
-        double amount = 0.0;
-        if (units <= 100) {
-            amount = units * 1.5;
-        } else if (units <= 300) {
-            amount = 100 * 1.5 + (units - 100) * 2.5;
-        } else {
-            amount = 100 * 1.5 + 200 * 2.5 + (units - 300) * 4.0;
+    public double calculateBill(int units, String city) {
+        double ratePerUnit;
+        switch (city) {
+            case "Mumbai / Maharashtra":
+                ratePerUnit = 9.0; // Average of 4.4 to 14+
+                break;
+            case "Delhi":
+                ratePerUnit = 5.5; // Average of 3 to 8
+                break;
+            case "Bangalore (Karnataka)":
+                ratePerUnit = 6.25; // Average of 5 to 7.5
+                break;
+            case "Chennai (Tamil Nadu)":
+                ratePerUnit = 7.0; // Average of ~5 to 9
+                break;
+            case "Kolkata (West Bengal)":
+                ratePerUnit = 7.0; // Average of 6 to 8
+                break;
+            default:
+                ratePerUnit = 5.5; // Default to Delhi rate
         }
-        return amount;
+        return units * ratePerUnit;
     }
 
     public Bill generateBill(Customer customer, int units, String month) {
-        double amount = calculateBill(units);
+        double amount = calculateBill(units, customer.getCity());
         Bill bill = new Bill(nextBillId++, customer.getCustomerId(), units, amount, month);
         bills.add(bill);
         return bill;
