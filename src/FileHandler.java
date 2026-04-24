@@ -6,9 +6,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Reads and writes customer and bill data to text files.
- */
 public class FileHandler {
     private static final String CUSTOMER_FILE = "customers.txt";
     private static final String BILL_FILE = "bills.txt";
